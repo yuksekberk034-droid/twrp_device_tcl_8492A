@@ -37,7 +37,7 @@ jobs:
       run: |
         cd twrp
         # REPLACE THE URL BELOW WITH YOUR ACTUAL DEVICE TREE GITHUB REPOSITORY
-        git clone https://github.com -b twrp-12.1 device/tcl/tb8766p1_64_bsp
+        git clone https://github.com/yuksekberk034-droid/android_device_tcl_tb8766p1_64_bsp.git -b twrp-12.1 device/tcl/tb8766p1_64_bsp
 
     - name: Execute Compilation
       run: |
