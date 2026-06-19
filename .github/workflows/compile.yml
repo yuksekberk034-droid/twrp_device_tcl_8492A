@@ -35,8 +35,15 @@ jobs:
     - name: Clone Custom Device Tree
       run: |
         cd twrp
-        # REPLACE THE URL BELOW WITH YOUR ACTUAL DEVICE TREE GITHUB REPOSITORY
-        git clone https://github.com/yuksekberk034-droid/android_device_tcl_tb8766p1_64_bsp.git -b twrp-12.1 device/tcl/tb8766p1_64_bsp
+        # 1. Clone using 'main' since that is your active GitHub branch
+        git clone https://github.com/yuksekberk034-droid/android_device_tcl_tb8766p1_64_bsp.git -b main device/tcl/tb8766p1_64_bsp
+        
+        # 2. Extract the nested zip file into the targeted device build directory
+        cd device/tcl/tb8766p1_64_bsp
+        unzip -q tb8766p1_64_bsp.zip
+        
+        # 3. Clean up the zip archive so Soong doesn't try to index it
+        rm -f tb8766p1_64_bsp.zip
         
     - name: Unzip Device Tree
       run: unzip device_tree.zip -d twrp/device/tcl/tb8766p1_64_bsp
