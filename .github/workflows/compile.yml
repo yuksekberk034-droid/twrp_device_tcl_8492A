@@ -53,13 +53,22 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         source build/envsetup.sh
         lunch twrp_tb8766p1_64_bsp-eng
+        make clean
         make recoveryimage -j$(nproc --all)
-        
+
+    # ---> ADD THIS NEW STEP HERE <---
+    - name: List Compiled Images
+      run: |
+        echo "=== Checking target product directory ==="
+        ls -la twrp/out/target/product/tb8766p1_64_bsp/
+        echo "=== Only listing generated .img files ==="
+        ls -la twrp/out/target/product/tb8766p1_64_bsp/*.img || echo "No .img files found yet!"
+
     - name: Upload Recovery Image Artifact
       uses: actions/upload-artifact@v4
       with:
         name: TWRP-Recovery-Images
-        # Uses wildcards to dynamically grab whatever images were compiled
         path: |
           twrp/out/target/product/tb8766p1_64_bsp/*.img
+          
           
