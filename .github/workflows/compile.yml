@@ -8,10 +8,21 @@ jobs:
     runs-on: ubuntu-latest # Uses GitHub's hosted virtual machine
 
     steps:
-    - name: Free Disk Space
+    - name: Free Disk Space (Aggressive Cleanup)
       run: |
-        sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        echo "=== Disk Space Before Cleanup ==="
+        df -h
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/share/boost
+        sudo rm -rf /usr/share/swift
+        sudo rm -rf /opt/pipx
+        sudo rm -rf /usr/local/.ghcup
         sudo apt-get clean
+        echo "=== Disk Space After Cleanup ==="
+        df -h
+        
 
     - name: Install Build Dependencies
       run: |
