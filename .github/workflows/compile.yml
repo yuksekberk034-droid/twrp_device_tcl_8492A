@@ -62,10 +62,14 @@ jobs:
       run: |
         cd twrp
         export ALLOW_MISSING_DEPENDENCIES=true
+        export TW_DEFAULT_LANGUAGE="en"
+        
+        # Initialize the build environment
         source build/envsetup.sh
         lunch twrp_tb8766p1_64_bsp-eng
-        make clean
-        make recoveryimage -j$(nproc --all)
+        
+        # Force the system to explicitly build the full recovery binary targets
+        make bootimage vendor_bootimage recoveryimage -j$(nproc --all)
 
     # ---> ADD THIS NEW STEP HERE <---
     - name: List Compiled Images
